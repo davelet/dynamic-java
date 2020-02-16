@@ -12,31 +12,31 @@ import java.lang.reflect.Method;
 public class JavassistApp {
 
     public static void main(String[] args) throws Exception {
-        ClassPool cp = ClassPool.getDefault();
+        var cp = ClassPool.getDefault();
         CtClass clazz = cp.makeClass("MyTest");
-        CtField field = new CtField(cp.get("java.lang.String"), "prop", clazz);
+        var field = new CtField(cp.get("java.lang.String"), "prop", clazz);
         field.setModifiers(Modifier.PRIVATE);
         clazz.addMethod(CtNewMethod.getter("getProp", field));
         clazz.addMethod(CtNewMethod.setter("setProp", field));
         clazz.addField(field, CtField.Initializer.constant("manxi hello"));
 
-        CtField intF = new CtField(CtClass.intType, "a", clazz);
+        var intF = new CtField(CtClass.intType, "a", clazz);
         intF.setModifiers(Modifier.PRIVATE);
         clazz.addField(intF);
-        CtField intF2 = new CtField(CtClass.intType, "b", clazz);
+        var intF2 = new CtField(CtClass.intType, "b", clazz);
         intF2.setModifiers(Modifier.PRIVATE);
         clazz.addField(intF2);
 
-        CtConstructor ctConstructor = new CtConstructor(new CtClass[]{}, clazz);
-        StringBuffer body = new StringBuffer("{}");
+        var ctConstructor = new CtConstructor(new CtClass[]{}, clazz);
+        var body = new StringBuffer("{}");
         ctConstructor.setBody(body.toString());
         clazz.addConstructor(ctConstructor);
 
-        CtConstructor ctC2 = new CtConstructor(new CtClass[]{CtClass.intType, CtClass.intType}, clazz);
+        var ctC2 = new CtConstructor(new CtClass[]{CtClass.intType, CtClass.intType}, clazz);
         ctC2.setBody("{this.a = $1; this.b=$2;}");
         clazz.addConstructor(ctC2);
 
-        CtMethod execute = new CtMethod(CtClass.voidType, "execute", new CtClass[]{}, clazz);
+        var execute = new CtMethod(CtClass.voidType, "execute", new CtClass[]{}, clazz);
         execute.setModifiers(Modifier.PUBLIC);
         body = new StringBuffer();
         body.append("{\n System.out.println(\"execute():\" + this.prop);");
@@ -44,7 +44,7 @@ public class JavassistApp {
         execute.setBody(body.toString());
         clazz.addMethod(execute);
 
-        CtMethod sum = new CtMethod(CtClass.intType, "sum", new CtClass[]{}, clazz);
+        var sum = new CtMethod(CtClass.intType, "sum", new CtClass[]{}, clazz);
         sum.setModifiers(Modifier.PUBLIC);
         sum.setBody("{return a + b;}");
         clazz.addMethod(sum);
