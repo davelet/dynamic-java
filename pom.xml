@@ -12,6 +12,7 @@
         <module>javassist-compile</module>
         <module>asm-compile</module>
         <module>joor-lib</module>
+        <module>javapoet-lib</module>
     </modules>
     <properties>
         <maven.test.skip>true</maven.test.skip>
